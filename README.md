@@ -45,7 +45,7 @@ Camera ────┬─► YOLO26 (real-time) ─┐                       │
 
 ### Installation
 
-```bash
+%```bash
 # Clone the repository
 git clone https://github.com/[your-username]/mindguard.git
 cd mindguard
