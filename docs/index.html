@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MindGuard — Agentic VLM for Multimodal Threat Detection</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600;8..60,700&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#faf9f6;--bg2:#f0eeea;--bg3:#e8e6e0;
+--text:#1a1a1a;--text2:#4a4a4a;--text3:#7a7a7a;
+--accent:#1a6b4f;--accent2:#248f6a;--accent-light:#e8f5ef;
+--coral:#c04830;--coral-light:#fdf0ed;
+--blue:#1a5fa5;--blue-light:#edf4fc;
+--amber:#9a6b10;--amber-light:#fdf6e8;
+--serif:'Source Serif 4',Georgia,serif;
+--sans:'Manrope',system-ui,sans-serif;
+--mono:'JetBrains Mono',monospace;
+--max:820px;--r:8px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.75}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(250,249,246,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--bg3);padding:14px 0}
+nav .inner{max-width:var(--max);margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+nav .brand{font-family:var(--serif);font-weight:700;font-size:18px;color:var(--accent);letter-spacing:-.02em}
+nav .links{display:flex;gap:24px}
+nav .links a{color:var(--text3);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.02em;transition:color .2s}
+nav .links a:hover{color:var(--text)}
+
+/* HERO */
+.hero{max-width:var(--max);margin:0 auto;padding:80px 24px 60px;text-align:center}
+.hero .venue{display:inline-block;background:var(--accent-light);color:var(--accent);font-family:var(--mono);font-size:12px;font-weight:500;padding:4px 14px;border-radius:20px;margin-bottom:20px;letter-spacing:.03em}
+.hero h1{font-family:var(--serif);font-size:clamp(28px,4.5vw,42px);font-weight:700;line-height:1.2;letter-spacing:-.03em;margin-bottom:16px;color:var(--text)}
+.hero .subtitle{font-size:17px;color:var(--text2);max-width:640px;margin:0 auto 28px;line-height:1.7}
+.hero .authors{font-size:14px;color:var(--text3);margin-bottom:8px}
+.hero .affiliation{font-size:13px;color:var(--text3);font-style:italic}
+.hero .buttons{display:flex;gap:12px;justify-content:center;margin-top:28px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 22px;border-radius:var(--r);font-size:13px;font-weight:600;text-decoration:none;transition:all .2s;font-family:var(--sans)}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--text2);border:1.5px solid var(--bg3)}
+.btn-outline:hover{border-color:var(--text3);color:var(--text)}
+
+/* SECTIONS */
+section{max-width:var(--max);margin:0 auto;padding:60px 24px}
+section h2{font-family:var(--serif);font-size:26px;font-weight:700;letter-spacing:-.02em;margin-bottom:8px;color:var(--text)}
+section h3{font-family:var(--serif);font-size:19px;font-weight:600;margin:32px 0 12px;color:var(--text)}
+section .section-sub{font-size:14px;color:var(--text3);margin-bottom:32px}
+.divider{border:none;border-top:1px solid var(--bg3);margin:0}
+
+/* ABSTRACT */
+.abstract-text{font-family:var(--serif);font-size:17px;line-height:1.85;color:var(--text2)}
+
+/* ARCHITECTURE */
+.arch-img{width:100%;border-radius:var(--r);border:1px solid var(--bg3);margin:20px 0}
+
+/* KEY FINDINGS */
+.findings-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.finding-card{background:#fff;border:1px solid var(--bg3);border-radius:var(--r);padding:24px;transition:border-color .2s}
+.finding-card:hover{border-color:var(--accent)}
+.finding-num{font-family:var(--mono);font-size:36px;font-weight:700;letter-spacing:-.02em}
+.finding-num.green{color:var(--accent)}
+.finding-num.coral{color:var(--coral)}
+.finding-num.blue{color:var(--blue)}
+.finding-num.amber{color:var(--amber)}
+.finding-label{font-size:13px;color:var(--text3);margin-top:4px;line-height:1.5}
+
+/* TABLES */
+.table-wrap{overflow-x:auto;margin:20px 0}
+table{width:100%;border-collapse:collapse;font-size:14px}
+thead{background:var(--bg2)}
+th{font-weight:600;text-align:left;padding:10px 14px;border-bottom:2px solid var(--bg3);font-size:13px;letter-spacing:.02em;color:var(--text2)}
+td{padding:10px 14px;border-bottom:1px solid var(--bg3)}
+td.best{font-weight:700;color:var(--accent)}
+tr:hover{background:var(--accent-light)}
+.table-caption{font-size:13px;color:var(--text3);margin-bottom:8px;font-style:italic}
+
+/* EXAMPLES */
+.example{background:#fff;border:1px solid var(--bg3);border-radius:var(--r);padding:24px;margin:20px 0}
+.example-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.example-badge{font-family:var(--mono);font-size:11px;font-weight:600;padding:3px 10px;border-radius:4px;letter-spacing:.03em}
+.badge-safe{background:var(--accent-light);color:var(--accent)}
+.badge-alert{background:var(--coral-light);color:var(--coral)}
+.badge-emergency{background:#fde8e8;color:#b91c1c}
+.example-title{font-weight:600;font-size:15px}
+.example p{font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:10px}
+.example img{width:100%;border-radius:6px;border:1px solid var(--bg3);margin:12px 0}
+.example code{font-family:var(--mono);font-size:13px;background:var(--bg2);padding:2px 6px;border-radius:3px}
+
+/* PIPELINE FLOW */
+.pipeline-flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:20px 0;justify-content:center}
+.pipe-node{background:#fff;border:1px solid var(--bg3);border-radius:6px;padding:8px 16px;font-size:12px;font-weight:500;text-align:center;min-width:90px}
+.pipe-node.green{border-color:var(--accent);background:var(--accent-light);color:var(--accent)}
+.pipe-node.coral{border-color:var(--coral);background:var(--coral-light);color:var(--coral)}
+.pipe-node.blue{border-color:var(--blue);background:var(--blue-light);color:var(--blue)}
+.pipe-arrow{color:var(--text3);font-size:18px}
+
+/* LATENCY BAR */
+.latency-bar{display:flex;align-items:center;gap:8px;margin:8px 0}
+.latency-bar .label{font-size:13px;color:var(--text2);min-width:160px}
+.latency-bar .bar{height:22px;border-radius:4px;display:flex;align-items:center;padding:0 8px;font-family:var(--mono);font-size:11px;color:#fff;font-weight:500;min-width:40px}
+
+/* BIBTEX */
+.bibtex-box{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--r);padding:20px;font-family:var(--mono);font-size:12px;line-height:1.8;overflow-x:auto;white-space:pre-wrap;color:var(--text2);position:relative}
+.copy-btn{position:absolute;top:10px;right:10px;background:var(--bg);border:1px solid var(--bg3);color:var(--text3);font-size:11px;padding:4px 10px;border-radius:4px;cursor:pointer;font-family:var(--mono)}
+.copy-btn:hover{background:var(--bg3);color:var(--text)}
+
+/* FOOTER */
+footer{text-align:center;padding:40px 24px;color:var(--text3);font-size:13px;border-top:1px solid var(--bg3);margin-top:40px}
+
+/* RESPONSIVE */
+@media(max-width:640px){
+.findings-grid{grid-template-columns:1fr}
+.hero h1{font-size:26px}
+nav .links{gap:14px}
+nav .links a{font-size:12px}
+}
+
+/* ANIMATIONS */
+.fade-in{opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="inner">
+<div class="brand">MindGuard</div>
+<div class="links">
+<a href="#abstract">Overview</a>
+<a href="#method">Method</a>
+<a href="#results">Results</a>
+<a href="#examples">Examples</a>
+<a href="#code">Code</a>
+</div>
+</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+<div class="venue">AI4GOOD Workshop @ ICML 2026</div>
+<h1>MindGuard: Agentic VLM for Multimodal Threat Detection</h1>
+<p class="subtitle">Risk-Aware Agentic Reasoning with VLM for Physical and Mental Threat Detection Across Multimodal Signals</p>
+<p class="authors">[Author Names]</p>
+<p class="affiliation">[University / Institution]</p>
+<div class="buttons">
+<a href="#" class="btn btn-primary">Paper (PDF)</a>
+<a href="#" class="btn btn-outline">Code</a>
+<a href="#" class="btn btn-outline">Test Suite (150 Cases)</a>
+<a href="#" class="btn btn-outline">Demo Video</a>
+</div>
+</div>
+
+<hr class="divider">
+
+<!-- ABSTRACT -->
+<section id="abstract" class="fade-in">
+<h2>Overview</h2>
+<p class="section-sub">What is MindGuard and why does it matter?</p>
+<p class="abstract-text">
+Physical AI systems operating in hospitals, schools, and public spaces face a dual safety challenge: they must recognize both verbal indicators of psychological crisis and visible signs of physical danger. Conventional monitoring tools handle these domains separately — text classifiers catch distressing language but miss a weapon on camera, while object detectors spot a knife but cannot interpret the emotional state behind someone's words.
+</p>
+<br>
+<p class="abstract-text">
+MindGuard tackles this through a layered, agentic architecture that jointly processes language and visual streams. A keyword scanner and fine-tuned BERT model evaluate text for mental health risk, while YOLO26 and a lightweight Vision-Language Model assess the camera feed for hazardous objects and contextual cues. An LLM-powered fusion agent then synthesizes these parallel signals, reasoning across modalities to distinguish genuine emergencies from benign expressions — for instance, understanding that "I'm dying of laughter" accompanied by a smiling face warrants no alarm. Running fully on local hardware with open-source models, the system achieves 92.7% overall accuracy on a 150-scenario benchmark while maintaining a 1.6-second response time suitable for continuous, real-time operation.
+</p>
+</section>
+
+<hr class="divider">
+
+<!-- KEY NUMBERS -->
+<section class="fade-in">
+<h2>At a Glance</h2>
+<p class="section-sub">Headline numbers from our 150-scenario evaluation</p>
+<div class="findings-grid">
+<div class="finding-card">
+<div class="finding-num green">92.7%</div>
+<div class="finding-label">Overall accuracy with full fusion pipeline, compared to 68.2% text-only and 67.9% vision-only</div>
+</div>
+<div class="finding-card">
+<div class="finding-num coral">3.6%</div>
+<div class="finding-label">False positive rate — a 4x reduction over text-only (14.6%) and 3.8x over vision-only (13.7%)</div>
+</div>
+<div class="finding-card">
+<div class="finding-num blue">1.6s</div>
+<div class="finding-label">End-to-end latency per interaction, all models running locally on a single GPU</div>
+</div>
+<div class="finding-card">
+<div class="finding-num amber">150</div>
+<div class="finding-label">Curated test scenarios across 5 categories with full per-case results available below</div>
+</div>
+</div>
+</section>
+
+<hr class="divider">
+
+<!-- METHOD -->
+<section id="method" class="fade-in">
+<h2>How It Works</h2>
+<p class="section-sub">A four-layer pipeline with parallel text and vision branches</p>
+
+<div class="pipeline-flow">
+<div class="pipe-node blue">Text Input</div>
+<div class="pipe-node blue">Camera</div>
+<div class="pipe-arrow">&rarr;</div>
+<div class="pipe-node green">Keywords</div>
+<div class="pipe-node green">BERT</div>
+<div class="pipe-node coral">YOLO26</div>
+<div class="pipe-node coral">VLM</div>
+<div class="pipe-arrow">&rarr;</div>
+<div class="pipe-node" style="border-color:var(--blue);background:var(--blue-light);color:var(--blue);font-weight:700">Fusion Agent</div>
+<div class="pipe-arrow">&rarr;</div>
+<div class="pipe-node">Decision</div>
+</div>
+
+<p>The architecture splits incoming data into two parallel streams. On the language side, a regex-based keyword scanner provides sub-millisecond flagging of explicit risk phrases, followed by a BERT classifier that scores subtler expressions of distress on a continuous 0–1 scale. On the visual side, YOLO26 nano delivers bounding-box detections at 8 ms per frame, while a lightweight VLM (LLaVA-Phi3) interprets the broader scene context in roughly 1.3 seconds.</p>
+<br>
+<p>These four signal sets converge in the fusion agent — an LLM (Qwen2.5-3B) prompted to weigh conflicting evidence and select one of five escalation levels: <strong>Safe</strong>, <strong>Monitor</strong>, <strong>Respond</strong>, <strong>Alert</strong>, or <strong>Emergency</strong>. A separate background thread continuously scans the camera at configurable intervals, so visual threats are caught even when no one is typing.</p>
+
+<!-- Architecture image placeholder -->
+<img class="arch-img" src="system_architecture.svg" alt="MindGuard system architecture diagram">
+<p style="font-size:13px;color:var(--text3);text-align:center;margin-top:4px">Figure 1. End-to-end architecture of the MindGuard pipeline.</p>
+</section>
+
+<hr class="divider">
+
+<!-- RESULTS -->
+<section id="results" class="fade-in">
+<h2>Experimental Results</h2>
+<p class="section-sub">Evaluated on 150 curated scenarios across five threat categories</p>
+
+<h3>Detection Accuracy</h3>
+<p>We benchmark three configurations — text-only (keywords + BERT), vision-only (YOLO + VLM), and the complete MindGuard pipeline — to isolate the value of cross-modal reasoning.</p>
+
+<div class="table-wrap">
+<p class="table-caption">Table 1. Detection accuracy (%) by scenario category. Best result per row in bold.</p>
+<table>
+<thead>
+<tr><th>Category</th><th>Samples</th><th>Text-only</th><th>Vision-only</th><th>MindGuard</th></tr>
+</thead>
+<tbody>
+<tr><td>Safe conversation</td><td>40</td><td>97.0</td><td>95.5</td><td class="best">99.5</td></tr>
+<tr><td>Mental health distress</td><td>30</td><td>86.0</td><td>0.0</td><td class="best">88.3</td></tr>
+<tr><td>Physical threat</td><td>25</td><td>0.0</td><td>88.0</td><td class="best">90.0</td></tr>
+<tr><td>Combined threats</td><td>25</td><td>67.0</td><td>78.0</td><td class="best">90.0</td></tr>
+<tr><td>False positive rejection</td><td>30</td><td>70.0</td><td>74.0</td><td class="best">92.3</td></tr>
+<tr style="font-weight:700;background:var(--bg2)"><td>Overall</td><td>150</td><td>68.2</td><td>67.9</td><td class="best">92.7</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Single-modal systems exhibit complementary blind spots: text analysis cannot perceive a weapon on screen (0% on physical threats), and vision cannot interpret language expressing suicidal ideation (0% on mental health). The fusion pipeline eliminates both failure modes while boosting accuracy on the hardest category — combined threats — by 12–23 percentage points over individual baselines.</p>
+
+<h3>False Positive Rates</h3>
+<p>Unnecessary escalations erode operator trust and render a monitoring system impractical. We measure how often each configuration incorrectly classifies a safe interaction as threatening.</p>
+
+<div class="table-wrap">
+<p class="table-caption">Table 2. False positive rates (%). Lower is better.</p>
+<table>
+<thead>
+<tr><th>Scenario Type</th><th>Text-only</th><th>Vision-only</th><th>MindGuard</th></tr>
+</thead>
+<tbody>
+<tr><td>Safe conversations</td><td>3.0</td><td>4.5</td><td class="best">0.5</td></tr>
+<tr><td>Figurative language</td><td>30.0</td><td>26.0</td><td class="best">7.7</td></tr>
+<tr style="font-weight:700;background:var(--bg2)"><td>Combined FP rate</td><td>14.6</td><td>13.7</td><td class="best">3.6</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Figurative expressions like "that joke killed me" or "I bombed the interview" trick keyword systems nearly a third of the time. By grounding text signals in the visual scene, MindGuard cuts the figurative-language false positive rate from 30% to under 8%.</p>
+
+<h3>Latency Profile</h3>
+<p>Each layer operates at a distinct speed tier, giving the system a natural fast-path for obvious cases and a deeper analysis path for ambiguous ones.</p>
+
+<div style="max-width:600px;margin:20px 0">
+<div class="latency-bar">
+<div class="label">Keywords + BERT</div>
+<div class="bar" style="width:20px;background:var(--accent)">11ms</div>
+</div>
+<div class="latency-bar">
+<div class="label">YOLO26 nano</div>
+<div class="bar" style="width:20px;background:var(--accent2)">8ms</div>
+</div>
+<div class="latency-bar">
+<div class="label">VLM (LLaVA-Phi3)</div>
+<div class="bar" style="width:260px;background:var(--coral)">~1.3s</div>
+</div>
+<div class="latency-bar">
+<div class="label">Fusion (Qwen2.5-3B)</div>
+<div class="bar" style="width:60px;background:var(--blue)">~0.3s</div>
+</div>
+<div class="latency-bar">
+<div class="label" style="font-weight:600">Full pipeline</div>
+<div class="bar" style="width:320px;background:var(--text)">~1.6s end-to-end</div>
+</div>
+</div>
+</section>
+
+<hr class="divider">
+
+<!-- EXAMPLES -->
+<section id="examples" class="fade-in">
+<h2>Qualitative Examples</h2>
+<p class="section-sub">Real outputs from the system showing cross-modal reasoning in action</p>
+
+<div class="example">
+<div class="example-header">
+<span class="example-badge badge-safe">SAFE</span>
+<span class="example-title">Figurative language correctly dismissed</span>
+</div>
+<p>Input: <code>"This game is killing me, I can't beat this level"</code></p>
+<p>The keyword scanner flags "killing me." BERT assigns moderate risk. Yet the VLM observes a relaxed individual at a computer with no visible distress. The fusion agent weighs the visual calm against the textual alarm and concludes the phrase is figurative — no escalation triggered.</p>
+<img src="figures/example1_false_positive.png" alt="Screenshot showing false positive rejection">
+</div>
+
+<div class="example">
+<div class="example-header">
+<span class="example-badge badge-alert">MONITOR</span>
+<span class="example-title">Silent visual threat caught without verbal cue</span>
+</div>
+<p>Input: <code>"hello"</code> — while a knife is in the camera frame</p>
+<p>Text analysis finds nothing concerning. The vision branch, however, identifies a sharp object in proximity to a person. Even without any verbal indication of danger, the agent raises the monitoring level — demonstrating that the pipeline does not depend on spoken or typed warnings to flag a hazard.</p>
+<img src="figures/example2_physical_threat.png" alt="Screenshot showing physical threat detection">
+</div>
+
+<div class="example">
+<div class="example-header">
+<span class="example-badge badge-emergency">EMERGENCY</span>
+<span class="example-title">Both modalities confirm critical danger</span>
+</div>
+<p>Input: <code>"I want to hurt someone right now"</code> — with a knife visible on camera</p>
+<p>Keywords and BERT both signal violence; simultaneously, the VLM detects a weapon being held. With converging evidence from independent channels, the agent triggers the highest severity level and saves a timestamped snapshot for human review.</p>
+<img src="figures/example3_combined_threat.png" alt="Screenshot showing combined threat emergency">
+</div>
+</section>
+
+<hr class="divider">
+
+<!-- DETAILED RESULTS -->
+<section class="fade-in">
+<h2>Full Evaluation Data</h2>
+<p class="section-sub">Per-scenario predictions and correctness for all 150 test cases</p>
+<p>The complete evaluation dataset — including each scenario's text input, visual scene description, expected outcome, and predictions from all three configurations — is available for download. Researchers can use this benchmark to reproduce our results or evaluate their own systems against the same test suite.</p>
+<div style="margin:20px 0;display:flex;gap:12px;flex-wrap:wrap">
+<a href="evaluation_results.csv" class="btn btn-outline">Download Results CSV</a>
+<a href="test_scenarios.csv" class="btn btn-outline">Download Test Scenarios</a>
+</div>
+</section>
+
+<hr class="divider">
+
+<!-- CODE -->
+<section id="code" class="fade-in">
+<h2>Code &amp; Resources</h2>
+<p class="section-sub">Everything needed to run and extend MindGuard</p>
+<p>The repository contains the full multimodal pipeline, the browser-based monitoring dashboard, the automated evaluation framework, and all 150 curated test scenarios. Every component uses open-source models and runs on a single consumer GPU — no cloud APIs required.</p>
+
+<h3>Models Used</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Component</th><th>Model</th><th>Size</th><th>Role</th></tr>
+</thead>
+<tbody>
+<tr><td>Text classifier</td><td>Fine-tuned BERT</td><td>~400 MB</td><td>Mental health risk scoring</td></tr>
+<tr><td>Object detector</td><td>YOLO26 nano</td><td>~5 MB</td><td>Real-time weapon and person detection</td></tr>
+<tr><td>Scene analyzer</td><td>LLaVA-Phi3</td><td>2.2 GB</td><td>Contextual visual understanding</td></tr>
+<tr><td>Fusion agent</td><td>Qwen2.5-3B</td><td>1.9 GB</td><td>Cross-modal reasoning and decision</td></tr>
+</tbody>
+</table>
+</div>
+
+<div style="margin:24px 0;display:flex;gap:12px;flex-wrap:wrap">
+<a href="https://github.com/[your-username]/mindguard" class="btn btn-primary">GitHub Repository</a>
+<a href="#" class="btn btn-outline">Pre-trained Weights</a>
+</div>
+</section>
+
+<hr class="divider">
+
+<!-- CITATION -->
+<section class="fade-in">
+<h2>Citation</h2>
+<p class="section-sub">If you find this work useful, please cite our paper</p>
+<div class="bibtex-box" id="bibtex">
+<button class="copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('bibtex-text').textContent)">Copy</button>
+<code id="bibtex-text">@inproceedings{mindguard2026,
+  title={MindGuard: Risk-Aware Agentic Reasoning with VLM for Physical and Mental Threat Detection Across Multimodal Signals},
+  author={[Author Names]},
+  booktitle={AI4GOOD Workshop at the International Conference on Machine Learning (ICML)},
+  year={2026},
+  url={https://github.com/[your-username]/mindguard}
+}</code>
+</div>
+</section>
+
+<footer>
+MindGuard &mdash; AI4GOOD Workshop @ ICML 2026, Seoul, South Korea
+<br>
+<span style="font-size:12px;margin-top:4px;display:inline-block">Built with open-source models. No cloud APIs. Runs on edge hardware.</span>
+</footer>
+
+<script>
+// Scroll-triggered fade-in animations
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

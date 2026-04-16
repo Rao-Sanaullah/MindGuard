@@ -1,0 +1,185 @@
+<svg width="100%" viewBox="0 0 680 980" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Helvetica Neue', Arial, sans-serif; background: white;">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arr-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#0F6E56" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arr-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#534AB7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arr-coral" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#993C1D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arr-dash" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#5F5E5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- ================ INPUT LAYER ================ -->
+  <!-- Two input sources side by side -->
+  <rect x="80" y="30" width="200" height="50" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.8"/>
+  <text x="180" y="51" text-anchor="middle" font-size="13" font-weight="500" fill="#0C447C">Text input</text>
+  <text x="180" y="68" text-anchor="middle" font-size="11" fill="#185FA5">Chat, voice-to-text</text>
+
+  <rect x="400" y="30" width="200" height="50" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.8"/>
+  <text x="500" y="51" text-anchor="middle" font-size="13" font-weight="500" fill="#0C447C">Image / video input</text>
+  <text x="500" y="68" text-anchor="middle" font-size="11" fill="#185FA5">Camera, robot sensor</text>
+
+  <!-- Arrows down from inputs -->
+  <line x1="180" y1="80" x2="180" y2="120" stroke="#185FA5" stroke-width="1" marker-end="url(#arr-blue)"/>
+  <line x1="500" y1="80" x2="500" y2="120" stroke="#185FA5" stroke-width="1" marker-end="url(#arr-blue)"/>
+
+  <!-- ================ TEXT PROCESSING BRANCH ================ -->
+  <!-- Dashed container: Text branch -->
+  <rect x="40" y="122" width="280" height="230" rx="14" fill="none" stroke="#0F6E56" stroke-width="0.7" stroke-dasharray="5 3"/>
+  <text x="56" y="140" font-size="11" fill="#0F6E56" font-weight="500">Text processing branch</text>
+
+  <!-- Layer 1a: Keyword Detection -->
+  <rect x="68" y="152" width="224" height="46" rx="6" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.7"/>
+  <text x="180" y="171" text-anchor="middle" font-size="12" font-weight="500" fill="#085041">Keyword detection</text>
+  <text x="180" y="187" text-anchor="middle" font-size="10" fill="#0F6E56">Self-harm + violence terms</text>
+
+  <line x1="180" y1="198" x2="180" y2="224" stroke="#0F6E56" stroke-width="0.8" marker-end="url(#arr-teal)"/>
+
+  <!-- Layer 2a: BERT Classifier -->
+  <rect x="68" y="226" width="224" height="46" rx="6" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.7"/>
+  <text x="180" y="245" text-anchor="middle" font-size="12" font-weight="500" fill="#3C3489">BERT classifier</text>
+  <text x="180" y="261" text-anchor="middle" font-size="10" fill="#534AB7">Mental health risk score (0-1)</text>
+
+  <!-- Text signals output -->
+  <rect x="100" y="290" width="160" height="22" rx="4" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+  <text x="180" y="305" text-anchor="middle" font-size="10" fill="#5F5E5A">text_signals: risk + keywords</text>
+
+  <!-- Arrow from text branch down to fusion -->
+  <line x1="180" y1="352" x2="180" y2="394" stroke="#0F6E56" stroke-width="1" marker-end="url(#arr-teal)"/>
+  <text x="144" y="378" font-size="10" fill="#0F6E56">text signals</text>
+
+  <!-- ================ VISION PROCESSING BRANCH ================ -->
+  <!-- Dashed container: Vision branch -->
+  <rect x="360" y="122" width="280" height="230" rx="14" fill="none" stroke="#993C1D" stroke-width="0.7" stroke-dasharray="5 3"/>
+  <text x="376" y="140" font-size="11" fill="#993C1D" font-weight="500">Vision processing branch</text>
+
+  <!-- Layer 1b: YOLO Object Detector -->
+  <rect x="388" y="152" width="224" height="46" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="0.7"/>
+  <text x="500" y="171" text-anchor="middle" font-size="12" font-weight="500" fill="#712B13">Object detector (YOLO)</text>
+  <text x="500" y="187" text-anchor="middle" font-size="10" fill="#993C1D">Weapons, fire, hazards</text>
+
+  <line x1="500" y1="198" x2="500" y2="224" stroke="#993C1D" stroke-width="0.8" marker-end="url(#arr-coral)"/>
+
+  <!-- Layer 2b: VLM Scene Understanding -->
+  <rect x="388" y="226" width="224" height="46" rx="6" fill="#FAECE7" stroke="#993C1D" stroke-width="0.7"/>
+  <text x="500" y="245" text-anchor="middle" font-size="12" font-weight="500" fill="#712B13">VLM scene analysis</text>
+  <text x="500" y="261" text-anchor="middle" font-size="10" fill="#993C1D">Qwen2-VL contextual reasoning</text>
+
+  <!-- Vision signals output -->
+  <rect x="408" y="290" width="184" height="22" rx="4" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+  <text x="500" y="305" text-anchor="middle" font-size="10" fill="#5F5E5A">vision_signals: objects + scene</text>
+
+  <!-- Arrow from vision branch down to fusion -->
+  <line x1="500" y1="352" x2="500" y2="394" stroke="#993C1D" stroke-width="1" marker-end="url(#arr-coral)"/>
+  <text x="512" y="378" font-size="10" fill="#993C1D">vision signals</text>
+
+  <!-- ================ FUSION AGENT ================ -->
+  <!-- Dashed container: Agentic fusion layer -->
+  <rect x="60" y="396" width="560" height="130" rx="16" fill="none" stroke="#534AB7" stroke-width="0.8" stroke-dasharray="6 4"/>
+  <text x="80" y="416" font-size="11" fill="#534AB7" font-weight="500">Multimodal agentic reasoning layer</text>
+
+  <!-- Fusion Agent Box -->
+  <rect x="120" y="426" width="440" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.8"/>
+  <text x="340" y="449" text-anchor="middle" font-size="13" font-weight="500" fill="#3C3489">Fusion agent (Qwen2-VL)</text>
+  <text x="340" y="467" text-anchor="middle" font-size="11" fill="#534AB7">Cross-modal reasoning: text signals + vision signals + context</text>
+
+  <!-- Output tags from fusion -->
+  <rect x="135" y="494" width="80" height="20" rx="4" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+  <text x="175" y="508" text-anchor="middle" font-size="10" fill="#5F5E5A">reasoning</text>
+
+  <rect x="228" y="494" width="72" height="20" rx="4" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+  <text x="264" y="508" text-anchor="middle" font-size="10" fill="#5F5E5A">decision</text>
+
+  <rect x="313" y="494" width="74" height="20" rx="4" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+  <text x="350" y="508" text-anchor="middle" font-size="10" fill="#5F5E5A">threat type</text>
+
+  <rect x="400" y="494" width="72" height="20" rx="4" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+  <text x="436" y="508" text-anchor="middle" font-size="10" fill="#5F5E5A">risk level</text>
+
+  <rect x="485" y="494" width="72" height="20" rx="4" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+  <text x="521" y="508" text-anchor="middle" font-size="10" fill="#5F5E5A">action</text>
+
+  <!-- Arrow to Decision layer -->
+  <line x1="340" y1="526" x2="340" y2="566" stroke="#888780" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- ================ DECISION EXECUTION ================ -->
+  <rect x="100" y="568" width="480" height="44" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.8"/>
+  <text x="340" y="594" text-anchor="middle" font-size="13" font-weight="500" fill="#2C2C2A">Decision execution layer</text>
+
+  <!-- Four output arrows -->
+  <line x1="130" y1="612" x2="130" y2="660" stroke="#0F6E56" stroke-width="1" marker-end="url(#arr-teal)"/>
+  <line x1="270" y1="612" x2="270" y2="660" stroke="#993C1D" stroke-width="1" marker-end="url(#arr-coral)"/>
+  <line x1="410" y1="612" x2="410" y2="660" stroke="#534AB7" stroke-width="1" marker-end="url(#arr-purple)"/>
+  <line x1="550" y1="612" x2="550" y2="660" stroke="#185FA5" stroke-width="1" marker-end="url(#arr-blue)"/>
+
+  <!-- Respond -->
+  <rect x="66" y="662" width="128" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.7"/>
+  <text x="130" y="684" text-anchor="middle" font-size="12" font-weight="500" fill="#085041">Respond</text>
+  <text x="130" y="700" text-anchor="middle" font-size="10" fill="#0F6E56">Empathetic reply</text>
+
+  <!-- Escalate -->
+  <rect x="206" y="662" width="128" height="56" rx="8" fill="#FAECE7" stroke="#993C1D" stroke-width="0.7"/>
+  <text x="270" y="684" text-anchor="middle" font-size="12" font-weight="500" fill="#712B13">Escalate</text>
+  <text x="270" y="700" text-anchor="middle" font-size="10" fill="#993C1D">Alert human team</text>
+
+  <!-- Log -->
+  <rect x="346" y="662" width="128" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.7"/>
+  <text x="410" y="684" text-anchor="middle" font-size="12" font-weight="500" fill="#3C3489">Log</text>
+  <text x="410" y="700" text-anchor="middle" font-size="10" fill="#534AB7">Audit trail</text>
+
+  <!-- Robot Action -->
+  <rect x="486" y="662" width="128" height="56" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.7"/>
+  <text x="550" y="684" text-anchor="middle" font-size="12" font-weight="500" fill="#0C447C">Robot action</text>
+  <text x="550" y="700" text-anchor="middle" font-size="10" fill="#185FA5">Navigate, alert, avoid</text>
+
+  <!-- ================ USE CASES BAR ================ -->
+  <line x1="60" y1="748" x2="620" y2="748" stroke="#D3D1C7" stroke-width="0.5"/>
+  <text x="340" y="770" text-anchor="middle" font-size="11" fill="#888780" font-weight="500">Deployment scenarios</text>
+
+  <!-- Use case boxes -->
+  <rect x="52" y="786" width="130" height="44" rx="6" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+  <text x="117" y="803" text-anchor="middle" font-size="11" font-weight="500" fill="#633806">Security robot</text>
+  <text x="117" y="819" text-anchor="middle" font-size="10" fill="#854F0B">Patrol + detect</text>
+
+  <rect x="198" y="786" width="130" height="44" rx="6" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+  <text x="263" y="803" text-anchor="middle" font-size="11" font-weight="500" fill="#633806">Industrial safety</text>
+  <text x="263" y="819" text-anchor="middle" font-size="10" fill="#854F0B">Hazard monitoring</text>
+
+  <rect x="344" y="786" width="130" height="44" rx="6" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+  <text x="409" y="803" text-anchor="middle" font-size="11" font-weight="500" fill="#633806">Healthcare bot</text>
+  <text x="409" y="819" text-anchor="middle" font-size="10" fill="#854F0B">Mental health + care</text>
+
+  <rect x="490" y="786" width="138" height="44" rx="6" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+  <text x="559" y="803" text-anchor="middle" font-size="11" font-weight="500" fill="#633806">Smart surveillance</text>
+  <text x="559" y="819" text-anchor="middle" font-size="10" fill="#854F0B">Real-time alerts</text>
+
+  <!-- ================ FEEDBACK LOOP ================ -->
+  <path d="M410 718 L410 860 L340 860 L340 880" fill="none" stroke="#5F5E5A" stroke-width="0.7" stroke-dasharray="4 3" marker-end="url(#arr-dash)"/>
+  <text x="420" y="856" font-size="10" fill="#5F5E5A" font-style="italic">feedback loop</text>
+
+  <rect x="240" y="882" width="200" height="26" rx="5" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+  <text x="340" y="899" text-anchor="middle" font-size="10" fill="#5F5E5A">Retrain classifiers (BERT + YOLO)</text>
+
+  <!-- ================ LEGEND ================ -->
+  <rect x="40" y="930" width="600" height="36" rx="6" fill="none" stroke="#D3D1C7" stroke-width="0.5"/>
+  <rect x="56" y="942" width="12" height="12" rx="2" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+  <text x="74" y="952" font-size="10" fill="#5F5E5A">Text processing</text>
+  <rect x="176" y="942" width="12" height="12" rx="2" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+  <text x="194" y="952" font-size="10" fill="#5F5E5A">Vision processing</text>
+  <rect x="310" y="942" width="12" height="12" rx="2" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="328" y="952" font-size="10" fill="#5F5E5A">Fusion / reasoning</text>
+  <rect x="440" y="942" width="12" height="12" rx="2" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+  <text x="458" y="952" font-size="10" fill="#5F5E5A">Input / robot action</text>
+
+</svg>
