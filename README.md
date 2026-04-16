@@ -6,9 +6,6 @@
 [![Project Page](https://img.shields.io/badge/Project-Page-green)](https://rao-sanaullah.github.io/MindGuard/)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
-<p align="center">
-  <img src="docs/system_architecture.svg" width="700" alt="MindGuard Architecture">
-</p>
 
 ## Overview
 
