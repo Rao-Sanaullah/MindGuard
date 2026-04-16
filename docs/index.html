@@ -150,7 +150,7 @@ nav .links a{font-size:12px}
 <a href="#" class="btn btn-primary">Paper (PDF)</a>
 <a href="#" class="btn btn-outline">Code</a>
 <a href="#" class="btn btn-outline">Test Suite (150 Cases)</a>
-<a href="#" class="btn btn-outline">Demo Video</a>
+<!-- <a href="#" class="btn btn-outline">Demo Video</a> -->
 </div>
 </div>
 
@@ -160,11 +160,11 @@ nav .links a{font-size:12px}
 <section id="abstract" class="fade-in">
 <h2>Overview</h2>
 <p class="section-sub">What is MindGuard and why does it matter?</p>
-<p class="abstract-text">
+<p class="abstract-text" align="justify">
 Physical AI systems operating in hospitals, schools, and public spaces face a dual safety challenge: they must recognize both verbal indicators of psychological crisis and visible signs of physical danger. Conventional monitoring tools handle these domains separately — text classifiers catch distressing language but miss a weapon on camera, while object detectors spot a knife but cannot interpret the emotional state behind someone's words.
 </p>
 <br>
-<p class="abstract-text">
+<p class="abstract-text" align="justify">
 MindGuard tackles this through a layered, agentic architecture that jointly processes language and visual streams. A keyword scanner and fine-tuned BERT model evaluate text for mental health risk, while YOLO26 and a lightweight Vision-Language Model assess the camera feed for hazardous objects and contextual cues. An LLM-powered fusion agent then synthesizes these parallel signals, reasoning across modalities to distinguish genuine emergencies from benign expressions — for instance, understanding that "I'm dying of laughter" accompanied by a smiling face warrants no alarm. Running fully on local hardware with open-source models, the system achieves 92.7% overall accuracy on a 150-scenario benchmark while maintaining a 1.6-second response time suitable for continuous, real-time operation.
 </p>
 </section>
@@ -178,19 +178,19 @@ MindGuard tackles this through a layered, agentic architecture that jointly proc
 <div class="findings-grid">
 <div class="finding-card">
 <div class="finding-num green">92.7%</div>
-<div class="finding-label">Overall accuracy with full fusion pipeline, compared to 68.2% text-only and 67.9% vision-only</div>
+<div class="finding-label" align="justify">Overall accuracy with full fusion pipeline, compared to 68.2% text-only and 67.9% vision-only</div>
 </div>
 <div class="finding-card">
 <div class="finding-num coral">3.6%</div>
-<div class="finding-label">False positive rate — a 4x reduction over text-only (14.6%) and 3.8x over vision-only (13.7%)</div>
+<div class="finding-label" align="justify">False positive rate — a 4x reduction over text-only (14.6%) and 3.8x over vision-only (13.7%)</div>
 </div>
 <div class="finding-card">
 <div class="finding-num blue">1.6s</div>
-<div class="finding-label">End-to-end latency per interaction, all models running locally on a single GPU</div>
+<div class="finding-label" align="justify">End-to-end latency per interaction, all models running locally on a single GPU</div>
 </div>
 <div class="finding-card">
 <div class="finding-num amber">150</div>
-<div class="finding-label">Curated test scenarios across 5 categories with full per-case results available below</div>
+<div class="finding-label" align="justify">Curated test scenarios across 5 categories with full per-case results available below</div>
 </div>
 </div>
 </section>
@@ -216,9 +216,9 @@ MindGuard tackles this through a layered, agentic architecture that jointly proc
 <div class="pipe-node">Decision</div>
 </div>
 
-<p>The architecture splits incoming data into two parallel streams. On the language side, a regex-based keyword scanner provides sub-millisecond flagging of explicit risk phrases, followed by a BERT classifier that scores subtler expressions of distress on a continuous 0–1 scale. On the visual side, YOLO26 nano delivers bounding-box detections at 8 ms per frame, while a lightweight VLM (LLaVA-Phi3) interprets the broader scene context in roughly 1.3 seconds.</p>
+<p align="justify">The architecture splits incoming data into two parallel streams. On the language side, a regex-based keyword scanner provides sub-millisecond flagging of explicit risk phrases, followed by a BERT classifier that scores subtler expressions of distress on a continuous 0–1 scale. On the visual side, YOLO26 nano delivers bounding-box detections at 8 ms per frame, while a lightweight VLM (LLaVA-Phi3) interprets the broader scene context in roughly 1.3 seconds.</p>
 <br>
-<p>These four signal sets converge in the fusion agent — an LLM (Qwen2.5-3B) prompted to weigh conflicting evidence and select one of five escalation levels: <strong>Safe</strong>, <strong>Monitor</strong>, <strong>Respond</strong>, <strong>Alert</strong>, or <strong>Emergency</strong>. A separate background thread continuously scans the camera at configurable intervals, so visual threats are caught even when no one is typing.</p>
+<p align="justify">These four signal sets converge in the fusion agent — an LLM (Qwen2.5-3B) prompted to weigh conflicting evidence and select one of five escalation levels: <strong>Safe</strong>, <strong>Monitor</strong>, <strong>Respond</strong>, <strong>Alert</strong>, or <strong>Emergency</strong>. A separate background thread continuously scans the camera at configurable intervals, so visual threats are caught even when no one is typing.</p>
 
 <!-- Architecture image placeholder -->
 <img class="arch-img" src="system_architecture.svg" alt="MindGuard system architecture diagram">
@@ -233,7 +233,7 @@ MindGuard tackles this through a layered, agentic architecture that jointly proc
 <p class="section-sub">Evaluated on 150 curated scenarios across five threat categories</p>
 
 <h3>Detection Accuracy</h3>
-<p>We benchmark three configurations — text-only (keywords + BERT), vision-only (YOLO + VLM), and the complete MindGuard pipeline — to isolate the value of cross-modal reasoning.</p>
+<p align="justify">We benchmark three configurations — text-only (keywords + BERT), vision-only (YOLO + VLM), and the complete MindGuard pipeline — to isolate the value of cross-modal reasoning.</p>
 
 <div class="table-wrap">
 <p class="table-caption">Table 1. Detection accuracy (%) by scenario category. Best result per row in bold.</p>
@@ -252,10 +252,10 @@ MindGuard tackles this through a layered, agentic architecture that jointly proc
 </table>
 </div>
 
-<p>Single-modal systems exhibit complementary blind spots: text analysis cannot perceive a weapon on screen (0% on physical threats), and vision cannot interpret language expressing suicidal ideation (0% on mental health). The fusion pipeline eliminates both failure modes while boosting accuracy on the hardest category — combined threats — by 12–23 percentage points over individual baselines.</p>
+<p align="justify">Single-modal systems exhibit complementary blind spots: text analysis cannot perceive a weapon on screen (0% on physical threats), and vision cannot interpret language expressing suicidal ideation (0% on mental health). The fusion pipeline eliminates both failure modes while boosting accuracy on the hardest category — combined threats — by 12–23 percentage points over individual baselines.</p>
 
 <h3>False Positive Rates</h3>
-<p>Unnecessary escalations erode operator trust and render a monitoring system impractical. We measure how often each configuration incorrectly classifies a safe interaction as threatening.</p>
+<p align="justify">Unnecessary escalations erode operator trust and render a monitoring system impractical. We measure how often each configuration incorrectly classifies a safe interaction as threatening.</p>
 
 <div class="table-wrap">
 <p class="table-caption">Table 2. False positive rates (%). Lower is better.</p>
@@ -271,10 +271,10 @@ MindGuard tackles this through a layered, agentic architecture that jointly proc
 </table>
 </div>
 
-<p>Figurative expressions like "that joke killed me" or "I bombed the interview" trick keyword systems nearly a third of the time. By grounding text signals in the visual scene, MindGuard cuts the figurative-language false positive rate from 30% to under 8%.</p>
+<p align="justify">Figurative expressions like "that joke killed me" or "I bombed the interview" trick keyword systems nearly a third of the time. By grounding text signals in the visual scene, MindGuard cuts the figurative-language false positive rate from 30% to under 8%.</p>
 
 <h3>Latency Profile</h3>
-<p>Each layer operates at a distinct speed tier, giving the system a natural fast-path for obvious cases and a deeper analysis path for ambiguous ones.</p>
+<p align="justify">Each layer operates at a distinct speed tier, giving the system a natural fast-path for obvious cases and a deeper analysis path for ambiguous ones.</p>
 
 <div style="max-width:600px;margin:20px 0">
 <div class="latency-bar">
@@ -312,8 +312,8 @@ MindGuard tackles this through a layered, agentic architecture that jointly proc
 <span class="example-badge badge-safe">SAFE</span>
 <span class="example-title">Figurative language correctly dismissed</span>
 </div>
-<p>Input: <code>"This game is killing me, I can't beat this level"</code></p>
-<p>The keyword scanner flags "killing me." BERT assigns moderate risk. Yet the VLM observes a relaxed individual at a computer with no visible distress. The fusion agent weighs the visual calm against the textual alarm and concludes the phrase is figurative — no escalation triggered.</p>
+<p align="justify">Input: <code>"This game is killing me, I can't beat this level"</code></p>
+<p align="justify">The keyword scanner flags "killing me." BERT assigns moderate risk. Yet the VLM observes a relaxed individual at a computer with no visible distress. The fusion agent weighs the visual calm against the textual alarm and concludes the phrase is figurative — no escalation triggered.</p>
 <img src="figures/example1_false_positive.png" alt="Screenshot showing false positive rejection">
 </div>
 
@@ -323,7 +323,7 @@ MindGuard tackles this through a layered, agentic architecture that jointly proc
 <span class="example-title">Silent visual threat caught without verbal cue</span>
 </div>
 <p>Input: <code>"hello"</code> — while a knife is in the camera frame</p>
-<p>Text analysis finds nothing concerning. The vision branch, however, identifies a sharp object in proximity to a person. Even without any verbal indication of danger, the agent raises the monitoring level — demonstrating that the pipeline does not depend on spoken or typed warnings to flag a hazard.</p>
+<p align="justify">Text analysis finds nothing concerning. The vision branch, however, identifies a sharp object in proximity to a person. Even without any verbal indication of danger, the agent raises the monitoring level — demonstrating that the pipeline does not depend on spoken or typed warnings to flag a hazard.</p>
 <img src="figures/example2_physical_threat.png" alt="Screenshot showing physical threat detection">
 </div>
 
@@ -333,7 +333,7 @@ MindGuard tackles this through a layered, agentic architecture that jointly proc
 <span class="example-title">Both modalities confirm critical danger</span>
 </div>
 <p>Input: <code>"I want to hurt someone right now"</code> — with a knife visible on camera</p>
-<p>Keywords and BERT both signal violence; simultaneously, the VLM detects a weapon being held. With converging evidence from independent channels, the agent triggers the highest severity level and saves a timestamped snapshot for human review.</p>
+<p align="justify">Keywords and BERT both signal violence; simultaneously, the VLM detects a weapon being held. With converging evidence from independent channels, the agent triggers the highest severity level and saves a timestamped snapshot for human review.</p>
 <img src="figures/example3_combined_threat.png" alt="Screenshot showing combined threat emergency">
 </div>
 </section>
@@ -344,7 +344,7 @@ MindGuard tackles this through a layered, agentic architecture that jointly proc
 <section class="fade-in">
 <h2>Full Evaluation Data</h2>
 <p class="section-sub">Per-scenario predictions and correctness for all 150 test cases</p>
-<p>The complete evaluation dataset — including each scenario's text input, visual scene description, expected outcome, and predictions from all three configurations — is available for download. Researchers can use this benchmark to reproduce our results or evaluate their own systems against the same test suite.</p>
+<p align="justify">The complete evaluation dataset — including each scenario's text input, visual scene description, expected outcome, and predictions from all three configurations — is available for download. Researchers can use this benchmark to reproduce our results or evaluate their own systems against the same test suite.</p>
 <div style="margin:20px 0;display:flex;gap:12px;flex-wrap:wrap">
 <a href="evaluation_results.csv" class="btn btn-outline">Download Results CSV</a>
 <a href="test_scenarios.csv" class="btn btn-outline">Download Test Scenarios</a>
@@ -357,7 +357,7 @@ MindGuard tackles this through a layered, agentic architecture that jointly proc
 <section id="code" class="fade-in">
 <h2>Code &amp; Resources</h2>
 <p class="section-sub">Everything needed to run and extend MindGuard</p>
-<p>The repository contains the full multimodal pipeline, the browser-based monitoring dashboard, the automated evaluation framework, and all 150 curated test scenarios. Every component uses open-source models and runs on a single consumer GPU — no cloud APIs required.</p>
+<p align="justify">The repository contains the full multimodal pipeline, the browser-based monitoring dashboard, the automated evaluation framework, and all 150 curated test scenarios. Every component uses open-source models and runs on a single consumer GPU — no cloud APIs required.</p>
 
 <h3>Models Used</h3>
 <div class="table-wrap">
