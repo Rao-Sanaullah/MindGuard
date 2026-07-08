@@ -135,6 +135,7 @@ nav .links a{font-size:12px}
 <a href="#results">Results</a>
 <a href="#examples">Examples</a>
 <a href="#code">Code</a>
+<a href="jetson.html">Jetson</a>
 </div>
 </div>
 </nav>
@@ -358,6 +359,34 @@ MindGuard tackles this through a layered, agentic architecture that jointly proc
 
 <hr class="divider">
 
+<!-- EDGE DEPLOYMENT -->
+<section class="fade-in">
+<h2>Edge Deployment</h2>
+<p class="section-sub">Running MindGuard on NVIDIA Jetson Orin AGX</p>
+<p align="justify">MindGuard runs entirely on edge hardware with no cloud dependency. We validated the complete pipeline on an NVIDIA Jetson Orin AGX (275 TOPS, 64GB unified memory) achieving 9.3-second end-to-end latency across 150 evaluation scenarios — a 5.8× slowdown from the desktop GPU baseline, but sufficient for continuous background monitoring at 10-second scan intervals.</p>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Pipeline Stage</th><th>Desktop (RTX 5090)</th><th>Jetson Orin AGX</th></tr>
+</thead>
+<tbody>
+<tr><td>Text branch (Keywords + BERT)</td><td>~0.01 s</td><td>~0.14 s</td></tr>
+<tr><td>Vision branch (YOLO26 + VLM)</td><td>~1.3 s</td><td>~4.0 s</td></tr>
+<tr><td>Fusion reasoning (Qwen2.5-3B)</td><td>~0.3 s</td><td>~5.1 s</td></tr>
+<tr style="font-weight:700;background:var(--bg2)"><td>Full pipeline</td><td>~1.6 s</td><td class="best">~9.3 s</td></tr>
+</tbody>
+</table>
+</div>
+
+<div style="margin:24px 0;display:flex;gap:12px;flex-wrap:wrap">
+<a href="jetson.html" class="btn btn-primary">Jetson Deployment Guide</a>
+<a href="https://github.com/Rao-Sanaullah/MindGuard/blob/main/Dockerfile" class="btn btn-outline">Dockerfile</a>
+</div>
+</section>
+
+<hr class="divider">
+  
 <!-- CITATION -->
 <section class="fade-in">
 <h2>Citation</h2>
