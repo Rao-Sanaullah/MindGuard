@@ -463,12 +463,8 @@ docker run -it \
 </div>
 </div>
 
-<div class="info-box">
-<strong>ℹ Note on GPU Inference</strong>
-Current deployment uses CPU inference due to a known Ollama GPU discovery limitation on JetPack 6. PyTorch CUDA works correctly (torch.cuda.is_available() = True). GPU-accelerated inference via TensorRT export is expected to reduce the full pipeline latency to ~3–4 seconds.
-</div>
 
-<h3>Key Takeaways</h3>
+<h3>Key Points</h3>
 <p>The complete MindGuard pipeline — YOLO26, BERT, LLaVA-Phi3, and Qwen2.5-3B — runs entirely on a single Jetson Orin AGX with no cloud dependency. The 9.3-second full pipeline latency is sufficient for the autonomous background monitor operating at 10-second scan intervals. The text branch (keywords + BERT) remains fast at 0.14 seconds, confirming that lightweight classifiers are well-suited for edge hardware. The VLM and fusion agent account for over 98% of total latency, making them the primary optimization targets for future TensorRT acceleration.</p>
 </section>
 
