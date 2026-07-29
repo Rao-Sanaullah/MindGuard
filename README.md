@@ -2,7 +2,7 @@
 
 **Risk-Aware Agentic Reasoning with VLM for Physical and Mental Threat Detection Across Multimodal Signals**
 
-[![Paper](https://img.shields.io/badge/Paper-AI4GOOD%20@%20ICML%202026-blue)](#)
+[![Paper](https://img.shields.io/badge/Paper)](#)
 [![Project Page](https://img.shields.io/badge/Project-Page-green)](https://rao-sanaullah.github.io/MindGuard/)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
